@@ -1,1 +1,0 @@
-Heitor, Davi, Aristides

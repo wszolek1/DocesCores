@@ -1,0 +1,122 @@
+body
+{
+margin: 0;
+}
+
+a
+{
+    color: white;
+    text-decoration: none;
+}
+
+.header ul
+{
+    width: 100%;
+    height: 10vh;
+    color: white;
+    margin: 0;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    list-style: none;
+    position: fixed;
+    top: 0;
+    background-color: #ff9696cc;
+}
+
+.fundo
+{
+    background-color: #6B1B3C;
+    width: 100vw;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.titulo
+{
+    font-size: larger;
+    font-family: "Pacifico", cursive;
+    text-align: center;
+    margin-top: 15vh;
+    color: white;
+}
+
+
+
+form input {
+    width: 200px;
+    height: 30px;
+    border-radius: 10px;
+    border: none;
+    padding: 10px;
+    font-size: 18px;
+    margin: 10px;
+    text-align: center;
+}
+
+form input::placeholder {
+    color: #999;
+    font-style: italic;
+}
+
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form button {
+    background-color: #ff9696;
+    color: white;
+    border-radius: 20px;
+    padding: 12px 30px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+form button:hover {
+    background-color: #ffb3b3;
+}
+
+
+
+.rodape
+{
+    width: 100%;
+    height: 10vh;
+    color: white;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    list-style: none;
+    background-color: #ff9696;
+    bottom: 0;
+    padding: 0 10px;
+    flex-wrap: wrap;
+}
+
+.rodape ul
+{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.rodape li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.rodape span {
+    display: block;
+}
