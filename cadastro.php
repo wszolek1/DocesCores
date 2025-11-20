@@ -1,41 +1,52 @@
 <?php
-include 'conexao.php';
+require "src/conexao-bd.php"; // caminho correto da conexão
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Recebe os dados do formulário
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
     $nome = trim($_POST['nome']);
     $email = trim($_POST['email']);
     $senha = trim($_POST['senha']);
 
-    // Validações simples
     if (!empty($nome) && !empty($email) && !empty($senha)) {
-        // Criptografa a senha
+
+        // Hash da senha
         $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
-        $tipo = 'usuario'; // tipo padrão
 
-        // Prepara a inserção segura
-        $stmt = $conn->prepare("INSERT INTO clientes (nome, email, senha, tipo) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("ssss", $nome, $email, $senhaHash, $tipo);
+        // Tipo padrão do usuário
+        $tipo = "cliente";
 
-        if ($stmt->execute()) {
-            echo "<script>alert('Cadastro realizado com sucesso! Faça login para continuar.'); 
-                  window.location.href='login.php';</script>";
-        } else {
-            if ($conn->errno === 1062) { // erro de duplicidade de email
-                echo "<script>alert('Este email já está cadastrado!');</script>";
+        // Prepara o INSERT corretamente para a tabela usuarios
+        $stmt = $pdo->prepare("
+            INSERT INTO usuarios (nome, email, senha, tipo) 
+            VALUES (?, ?, ?, ?)
+        ");
+
+        try {
+            if ($stmt->execute([$nome, $email, $senhaHash, $tipo])) {
+                echo "<script>
+                        alert('Cadastro realizado com sucesso!');
+                        window.location.href = 'login.php';
+                      </script>";
             } else {
                 echo "<script>alert('Erro ao cadastrar. Tente novamente.');</script>";
             }
+
+        } catch (PDOException $e) {
+
+            // 1062 → email duplicado
+            if ($e->errorInfo[1] == 1062) {
+                echo "<script>alert('Este email já está cadastrado!');</script>";
+            } else {
+                echo "<script>alert('Erro no servidor.');</script>";
+            }
         }
 
-        $stmt->close();
     } else {
-        echo "<script>alert('Por favor, preencha todos os campos.');</script>";
+        echo "<script>alert('Preencha todos os campos!');</script>";
     }
-
-    $conn->close();
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -50,11 +61,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
+
 <div class="header">
     <ul>
         <li><a href="pag1.html">Inicio</a></li>
         <li><a href="pag2.html">Serviços</a></li>
-        <li><a href="pag3.html">Receitas</a></li>
+        <li><a href="pag3.php">Receitas</a></li>
         <li><a href="pag4.html">Sobre</a></li>
         <li><a href="login.php">Login</a></li>
     </ul>
@@ -67,15 +79,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 
     <form action="cadastro.php" method="POST">
-        <input type="text" name="nome" placeholder="Nome completo" required>
-        <br><br>
-        <input type="email" name="email" placeholder="Email" required>
-        <br><br>
-        <input type="password" name="senha" placeholder="Senha" required>
-        <br><br>
-        <button type="submit">Cadastrar-se</button>
-        <br><br>
-        <button type="button"><a href="login.php">Já tenho conta</a></button>
+        <input type="text" name="nome" placeholder="Nome completo" required><br><br>
+        <input type="email" name="email" placeholder="Email" required><br><br>
+        <input type="password" name="senha" placeholder="Senha" required><br><br>
+
+        <button type="submit">Cadastrar-se</button><br><br>
+
+        <button type="button">
+            <a href="login.php">Já tenho conta</a>
+        </button>
     </form>
 </div>
 
@@ -90,3 +102,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <span class="info">Curitiba, Paraná</span>
         </li>
         <li>
+            <span>Horário de funcionamento</span>
+            <span class="info">Seg - Sex, 10:00 - 19:00</span>
+        </li>
+    </ul>
+</div>
+
+</body>
+</html>

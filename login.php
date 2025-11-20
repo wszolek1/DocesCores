@@ -1,44 +1,46 @@
 <?php
 session_start();
-include("conexao.php"); // conexão com o banco
+require "src/conexao-bd.php"; // conexão PDO
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
     $email = trim($_POST['email']);
     $senha = trim($_POST['senha']);
 
     if (!empty($email) && !empty($senha)) {
 
-        // Busca o cliente pelo email
-        $stmt = $conn->prepare("SELECT * FROM clientes WHERE email = ?");
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
+        // Busca o usuário pelo email
+        $sql = "SELECT * FROM usuarios WHERE email = ?";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$email]);
+        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($result->num_rows === 1) {
-            $cliente = $result->fetch_assoc();
+        if ($usuario) {
 
-            // Verifica a senha (com hash)
-            if (password_verify($senha, $cliente['senha'])) {
-                // Guarda dados na sessão
-                $_SESSION['usuario_id'] = $cliente['id'];
-                $_SESSION['usuario_nome'] = $cliente['nome'];
-                $_SESSION['usuario_tipo'] = $cliente['tipo'];
+            // VERIFICAÇÃO CORRETA DA SENHA
+            if (password_verify($senha, $usuario['senha'])) {
 
-                // Redireciona de acordo com o tipo
-                if ($cliente['tipo'] === 'admin') {
-                    header("Location: admin_dashboard.php"); // 🔧 coloque aqui a página do admin
+                // Salva dados na sessão
+                $_SESSION['usuario_id'] = $usuario['id'];
+                $_SESSION['usuario_nome'] = $usuario['nome'];
+                $_SESSION['usuario_tipo'] = $usuario['tipo'];
+
+                // Redirecionamento
+                if ($usuario['tipo'] === 'adm') {
+                    header("Location: adm/index.php");
                 } else {
-                    header("Location: pag1.html"); // 🔧 coloque aqui a página do usuário comum
+                    header("Location: pag1.html");
                 }
                 exit;
+
             } else {
                 $erro = "Senha incorreta!";
             }
+
         } else {
             $erro = "Email não encontrado!";
         }
 
-        $stmt->close();
     } else {
         $erro = "Preencha todos os campos!";
     }
@@ -61,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <ul>
         <li><a href="pag1.html">Inicio</a></li>
         <li><a href="pag2.html">Serviços</a></li>
-        <li><a href="pag3.html">Receitas</a></li>
+        <li><a href="pag3.php">Receitas</a></li>
         <li><a href="pag4.html">Sobre</a></li>
         <li><a href="login.php">Login</a></li>
     </ul>
@@ -83,7 +85,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <button type="button"><a href="cadastro.php">Cadastrar-se</a></button>
     </form>
 
-    <?php if (isset($erro)) echo "<p style='color:red; text-align:center;'>$erro</p>"; ?>
+    <?php 
+        if (isset($erro)) {
+            echo "<p style='color:red; text-align:center;'>$erro</p>";
+        }
+    ?>
 </div>
 
 <div class="rodape">
