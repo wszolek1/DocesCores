@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 // Redirecionamento
                 if ($usuario['tipo'] === 'adm') {
-                    header("Location: adm/index.php");
+                    header("Location: painel-admin.php");
                 } else {
                     header("Location: pag1.html");
                 }
