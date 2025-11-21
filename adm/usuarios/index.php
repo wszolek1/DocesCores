@@ -35,12 +35,23 @@ $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </ul>
 </div>
 
-
 <div class="fundo">
 
     <div class="titulo">
         <h1>Gerenciar Usuários</h1>
     </div>
+
+    <?php if (isset($_GET['erro']) && $_GET['erro'] === 'fk'): ?>
+        <p style="color: #ffb3b3; font-size: 20px; text-align: center;">
+            ❌ Este usuário possui pedidos e não pode ser excluído.
+        </p>
+    <?php endif; ?>
+
+    <?php if (isset($_GET['sucesso'])): ?>
+        <p style="color: #b3ffb3; font-size: 20px; text-align: center;">
+            ✔️ Usuário excluído com sucesso.
+        </p>
+    <?php endif; ?>
 
     <div class="topo-admin">
         <a class="btn-criar" href="criar.php">➕ Cadastrar usuário</a>
@@ -64,15 +75,13 @@ $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <td>
                     <a class="editar" href="editar.php?id=<?= $u['id'] ?>">Editar</a> |
                     <a class="excluir" href="excluir.php?id=<?= $u['id'] ?>"
-                        onclick="return confirm('Excluir este usuário?')">Excluir</a>
+                       onclick="return confirm('Excluir este usuário?')">Excluir</a>
                 </td>
             </tr>
         <?php endforeach; ?>
     </table>
 
 </div>
-
-
 
 </body>
 </html>

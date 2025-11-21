@@ -1,10 +1,7 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-}
-
-a {
-    text-decoration: none;
+    background-color: #6B1B3C;
     color: white;
 }
 
@@ -24,69 +21,79 @@ a {
     z-index: 10;
 }
 
-.fundo {
-    padding-top: 12vh;
-    min-height: 100vh;
-    background-color: #6B1B3C;
+a {
+    text-decoration: none;
     color: white;
 }
 
-.titulo h1 {
-    font-family: "Pacifico", cursive;
-    font-size: 50px;
-    text-align: center;
-}
-
-.topo-admin {
-    width: 90%;
-    margin: 0 auto;
-    display: flex;
-    justify-content: end;
-    padding-bottom: 20px;
-}
-
-.btn-criar {
-    background-color: #ff9696;
-    padding: 10px 20px;
-    border-radius: 10px;
-    color: white;
-    font-weight: bold;
-}
-
-.tabela {
-    width: 90%;
-    margin: 0 auto;
-    border-collapse: collapse;
+.container {
+    width: 60%;
+    margin: 12vh auto 50px auto;
     background-color: #ffffff22;
-    color: white;
-    font-size: 20px;
-    border-radius: 10px;
-    overflow: hidden;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px #00000055;
 }
 
-.tabela th {
-    background-color: #ff9696;
-    padding: 15px;
+.container h2 {
     font-family: "Pacifico", cursive;
-    font-size: 26px;
-}
-
-.tabela td {
-    padding: 15px;
+    font-size: 46px;
     text-align: center;
-    background-color: #ffffff11;
+    margin-top: 0;
 }
 
-.tabela tr:hover td {
-    background-color: #ffffff33;
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-.editar {
-    color: #a8ffb5;
+label {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffcccc;
 }
 
-.excluir {
-    color: #ff6868;
+input[type="text"],
+input[type="number"],
+textarea,
+input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    background-color: #ffffffdd;
+    font-size: 16px;
+}
+
+textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.imagem-preview {
+    text-align: center;
+}
+
+.imagem-preview img {
+    margin-top: 10px;
+    border-radius: 10px;
+    width: 160px;
+}
+
+button {
+    background-color: #ff9696;
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #ffb4b4;
 }
 
 .rodape {

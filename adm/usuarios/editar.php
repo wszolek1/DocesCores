@@ -28,7 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
     $tipo  = $_POST['tipo'];
 
-    // Se enviar senha nova
     if (!empty($_POST['senha'])) {
         $senha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
         $pdo->prepare("UPDATE usuarios SET nome=?, email=?, senha=?, tipo=? WHERE id=?")
@@ -45,34 +44,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<title>Editar Usuário</title>
+    <meta charset="UTF-8">
+    <title>Editar Usuário</title>
+    <link rel="stylesheet" href="../../css/usuarios.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<h2>Editar Usuário</h2>
+<div class="container">
+    <h2>Editar Usuário</h2>
 
-<form method="post">
-    Nome: <br>
-    <input type="text" name="nome" value="<?= $user['nome'] ?>" required><br><br>
+    <form method="post">
+        <label>Nome:</label>
+        <input type="text" name="nome" value="<?= $user['nome'] ?>" required>
 
-    Email: <br>
-    <input type="email" name="email" value="<?= $user['email'] ?>" required><br><br>
+        <label>Email:</label>
+        <input type="email" name="email" value="<?= $user['email'] ?>" required>
 
-    Nova senha (opcional): <br>
-    <input type="password" name="senha"><br><br>
+        <label>Nova senha (opcional):</label>
+        <input type="password" name="senha">
 
-    Tipo:<br>
-    <select name="tipo">
-        <option value="cliente" <?= $user['tipo'] == 'cliente' ? 'selected' : '' ?>>Cliente</option>
-        <option value="adm"     <?= $user['tipo'] == 'adm' ? 'selected' : '' ?>>Administrador</option>
-    </select><br><br>
+        <label>Tipo:</label>
+        <select name="tipo">
+            <option value="cliente" <?= $user['tipo'] == 'cliente' ? 'selected' : '' ?>>Cliente</option>
+            <option value="adm" <?= $user['tipo'] == 'adm' ? 'selected' : '' ?>>Administrador</option>
+        </select>
 
-    <button type="submit">Salvar</button>
-</form>
+        <button type="submit">Salvar</button>
+    </form>
 
-<br>
-<a href="index.php">Voltar</a>
+    <a class="voltar" href="index.php">Voltar</a>
+</div>
 
 </body>
 </html>

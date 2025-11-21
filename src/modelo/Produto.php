@@ -20,17 +20,22 @@ class Produto
         $this->descricao = $descricao;
         $this->preco = $preco;
 
-        // Agora combina com seu banco de dados
-        $this->imagem = $imagem ?: "imagens/padrao.png";
+        // Se não tiver imagem, usa padrão
+        $this->imagem = $imagem ?: "upload/padrao.png";
     }
 
     public function getId() { return $this->id; }
     public function getNome() { return $this->nome; }
     public function getDescricao() { return $this->descricao; }
     public function getPreco() { return $this->preco; }
-    public function getImagemDiretorio(){return "upload/" . $this->imagem;}
-    
-public function getPrecoFormatado()
+
+    // Agora retorna exatamente o caminho salvo no banco
+    public function getImagemDiretorio()
+    {
+        return $this->imagem;
+    }
+
+    public function getPrecoFormatado()
     {
         return "R$ " . number_format($this->preco, 2, ',', '.');
     }

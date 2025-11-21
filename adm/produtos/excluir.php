@@ -1,5 +1,5 @@
 <?php
-require "../src/conexao-bd.php";
+require "../../src/conexao-bd.php";
 
 $id = $_GET['id'];
 

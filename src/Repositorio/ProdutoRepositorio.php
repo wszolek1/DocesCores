@@ -30,9 +30,4 @@ class ProdutoRepositorio
         return $produtos;
     }
 
-    // futura implementação (apagar por enquanto porque seu banco NÃO tem categoria)
-    public function listarPorCategoria(string $categoria): array
-    {
-        return []; // não existe coluna categoria no banco
-    }
 }

@@ -31,13 +31,13 @@ if (!$p) {
 
 <body>
 
-<!-- HEADER -->
 <div class="header">
     <ul>
         <li><a href="pag1.html">Inicio</a></li>
         <li><a href="pag2.html">Serviços</a></li>
         <li><a href="pag3.php">Receitas</a></li>
         <li><a href="pag4.html">Sobre</a></li>
+        <li><a href="carrinho/carrinho.php">Carrinho</a></li>
         <li><a href="login.php">Login</a></li>
     </ul>
 </div>
@@ -46,8 +46,8 @@ if (!$p) {
 
     <div class="produto-box">
 
-        <!-- CORREÇÃO AQUI -->
-        <img class="img-produto" src="/DocesCores/imagens/<?= htmlspecialchars($p['imagem']) ?>">
+        <!-- Imagem do produto-->
+        <img class="img-produto" src="<?= htmlspecialchars($p['imagem']) ?>">
 
         <div class="info">
 
@@ -72,7 +72,6 @@ if (!$p) {
 
 </div>
 
-<!-- RODAPÉ -->
 <div class="rodape">
     <ul>
         <li>

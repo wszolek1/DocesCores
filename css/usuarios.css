@@ -1,10 +1,7 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-}
-
-a {
-    text-decoration: none;
+    background-color: #6B1B3C;
     color: white;
 }
 
@@ -24,43 +21,72 @@ a {
     z-index: 10;
 }
 
-.pa-fundo {
-    padding-top: 12vh;
-    min-height: 100vh;
-    background-color: #6B1B3C;
+a {
+    text-decoration: none;
     color: white;
-    text-align: center;
 }
 
-.pa-titulo {
+.container {
+    width: 60%;
+    margin: 12vh auto 50px auto;
+    background-color: #ffffff22;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px #00000055;
+}
+
+.container h2 {
     font-family: "Pacifico", cursive;
-    font-size: 60px;
-    margin-bottom: 40px;
+    font-size: 46px;
+    text-align: center;
+    margin-top: 0;
 }
 
-.pa-opcoes {
+form {
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 20px;
+}
+
+label {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffcccc;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select {
     width: 100%;
-    align-items: center;
-    margin-top: 20px;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    background-color: #ffffffdd;
+    font-size: 16px;
 }
 
-.pa-botao {
+button {
     background-color: #ff9696;
-    padding: 18px 40px;
-    font-size: 28px;
-    border-radius: 18px;
-    width: 320px;
-    max-width: 90%;
-    text-align: center;
-    font-family: "Pacifico", cursive;
-    transition: 0.2s;
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
-.pa-botao:hover {
-    background-color: #ffb3b3;
+button:hover {
+    background-color: #ffb4b4;
+}
+
+.voltar {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 22px;
+    color: #fff;
 }
 
 .rodape {
@@ -72,7 +98,6 @@ a {
     justify-content: space-evenly;
     color: white;
     font-size: 20px;
-    margin-top: 40px;
 }
 
 .rodape ul {

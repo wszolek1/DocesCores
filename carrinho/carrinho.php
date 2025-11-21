@@ -30,17 +30,18 @@ $itens = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
 
-<!-- HEADER -->
 <div class="header">
     <ul>
         <li><a href="../pag1.html">Inicio</a></li>
         <li><a href="../pag2.html">Serviços</a></li>
         <li><a href="../pag3.php">Receitas</a></li>
         <li><a href="../pag4.html">Sobre</a></li>
+        <li><a href="carrinho.php">Carrinho</a></li>
         <li><a href="../login.php">Login</a></li>
     </ul>
 </div>
@@ -59,7 +60,7 @@ $itens = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <?php foreach ($itens as $item): ?>
                 <div class="item">
 
-                    <img src="/DocesCores/imagens/<?= htmlspecialchars($item['imagem']) ?>">
+                    <img src="../<?= htmlspecialchars($item['imagem']) ?>">
 
                     <div class="info">
                         <h2><?= $item['nome'] ?></h2>
@@ -85,7 +86,6 @@ $itens = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <?php endif; ?>
 </div>
 
-<!-- RODAPÉ -->
 <div class="rodape">
     <ul>
         <li>

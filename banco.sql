@@ -4,9 +4,7 @@ DEFAULT COLLATE utf8mb4_general_ci;
 
 USE DocesCoresdb;
 
--- ------------------------------
--- TABELA DE PRODUTOS
--- ------------------------------
+
 CREATE TABLE produtos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(150) NOT NULL,
@@ -15,9 +13,7 @@ CREATE TABLE produtos (
     imagem VARCHAR(255) DEFAULT 'imagens/default.png'
 );
 
--- ------------------------------
--- TABELA DE USUÁRIOS
--- ------------------------------
+
 CREATE TABLE usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(120) NOT NULL,
@@ -26,7 +22,7 @@ CREATE TABLE usuarios (
     tipo ENUM('adm', 'cliente') DEFAULT 'cliente'
 );
 
--- ADMINISTRADOR COM PASSWORD_HASH (substitua o hash abaixo)
+-- ADMINISTRADOR
 INSERT INTO usuarios (nome, email, senha, tipo)
 VALUES (
     'Administrador',
@@ -35,9 +31,7 @@ VALUES (
     'adm'
 );
 
--- ------------------------------
--- TABELA DO CARRINHO
--- ------------------------------
+
 CREATE TABLE carrinho (
     id INT AUTO_INCREMENT PRIMARY KEY,
     usuario_id INT NOT NULL,
@@ -48,22 +42,23 @@ CREATE TABLE carrinho (
     FOREIGN KEY (produto_id) REFERENCES produtos(id)
 );
 
--- ------------------------------
--- TABELA DE PEDIDOS
--- ------------------------------
+
 CREATE TABLE pedidos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     usuario_id INT NOT NULL,
-    total DECIMAL(10,2) NOT NULL,
+    nome_cliente VARCHAR(255) NOT NULL,
+    produto VARCHAR(255) NOT NULL,
+    quantidade INT NOT NULL,
+    status ENUM('Pendente','Preparando','Enviado','Concluído') DEFAULT 'Pendente',
     data_pedido DATETIME DEFAULT CURRENT_TIMESTAMP,
-    status ENUM('pendente','pago','enviado','entregue') DEFAULT 'pendente',
 
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
+        ON DELETE RESTRICT
+        ON UPDATE CASCADE
 );
 
--- ------------------------------
--- PRODUTOS PADRÃO
--- ------------------------------
+
+
 INSERT INTO produtos (nome, descricao, preco, imagem) VALUES
 ('Bolo Red Velvet', 'Delicioso bolo aveludado com cobertura de cream cheese.', 59.90, 'imagens/redvelvet.jpg'),
 ('Cupcake de Chocolate', 'Massa fofinha com cobertura cremosa de chocolate.', 9.90, 'imagens/cupcake_chocolate.jpg'),

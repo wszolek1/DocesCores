@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "src/conexao-bd.php"; // conexão PDO
+require "src/conexao-bd.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -65,6 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <li><a href="pag2.html">Serviços</a></li>
         <li><a href="pag3.php">Receitas</a></li>
         <li><a href="pag4.html">Sobre</a></li>
+        <li><a href="carrinho/carrinho.php">Carrinho</a></li>
         <li><a href="login.php">Login</a></li>
     </ul>
 </div>

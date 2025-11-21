@@ -33,6 +33,7 @@ $receitas = $produtosRepositorio->listarTodos();
         <li><a href="pag2.html">Serviços</a></li>
         <li><a href="pag3.php">Receitas</a></li>
         <li><a href="pag4.html">Sobre</a></li>
+        <li><a href="carrinho/carrinho.php">Carrinho</a></li>
         <li><a href="login.php">Login</a></li>
     </ul>
 </div>
@@ -48,7 +49,7 @@ $receitas = $produtosRepositorio->listarTodos();
         <?php foreach ($receitas as $produto): ?>
             <a class="receitaLink" href="produto.php?id=<?= $produto->getId() ?>">
                 <div class="receitaItem">
-                    <img src="/DocesCores/<?= $produto->getImagemDiretorio() ?>" alt="">
+                    <img src="<?= $produto->getImagemDiretorio() ?>">
                     <p>
                         <?= $produto->getDescricao() ?><br><br>
                         <?= $produto->getPrecoFormatado() ?>

@@ -23,34 +23,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<title>Criar Usuário</title>
+    <meta charset="UTF-8">
+    <title>Criar Usuário</title>
+    <link rel="stylesheet" href="../../css/usuarios.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<h2>Criar Usuário</h2>
+<div class="container">
+    <h2>Criar Usuário</h2>
 
-<form method="post">
-    Nome: <br>
-    <input type="text" name="nome" required><br><br>
+    <form method="post">
+        <label>Nome:</label>
+        <input type="text" name="nome" required>
 
-    Email: <br>
-    <input type="email" name="email" required><br><br>
+        <label>Email:</label>
+        <input type="email" name="email" required>
 
-    Senha: <br>
-    <input type="password" name="senha" required><br><br>
+        <label>Senha:</label>
+        <input type="password" name="senha" required>
 
-    Tipo:<br>
-    <select name="tipo">
-        <option value="cliente">Cliente</option>
-        <option value="adm">Administrador</option>
-    </select><br><br>
+        <label>Tipo:</label>
+        <select name="tipo">
+            <option value="cliente">Cliente</option>
+            <option value="adm">Administrador</option>
+        </select>
 
-    <button type="submit">Cadastrar</button>
-</form>
+        <button type="submit">Cadastrar</button>
+    </form>
 
-<br>
-<a href="index.php">Voltar</a>
+    <a class="voltar" href="index.php">Voltar</a>
+</div>
 
 </body>
 </html>
