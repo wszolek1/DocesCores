@@ -5,7 +5,21 @@ require "src/Repositorio/ProdutoRepositorio.php";
 
 $produtosRepositorio = new ProdutoRepositorio($pdo);
 
-$receitas = $produtosRepositorio->listarTodos();
+// PAGINAÇÃO
+$itens_por_pagina = filter_input(INPUT_GET, 'itens_por_pagina', FILTER_VALIDATE_INT) ?: 4;
+
+$pagina_atual = isset($_GET['pagina']) ? max(1, (int)$_GET['pagina']) : 1;
+$offset = ($pagina_atual - 1) * $itens_por_pagina;
+
+$total_receitas = $produtosRepositorio->contarTotal();
+$total_paginas = ceil($total_receitas / $itens_por_pagina);
+
+$receitas = $produtosRepositorio->buscarPaginado(
+    $itens_por_pagina,
+    $offset,
+    null,
+    'ASC'
+);
 ?>
 
 <!DOCTYPE html>
@@ -59,6 +73,26 @@ $receitas = $produtosRepositorio->listarTodos();
         <?php endforeach; ?>
 
     </div>
+
+    <!-- PAGINAÇÃO -->
+    <div class="paginacao-site">
+        <?php if ($pagina_atual > 1): ?>
+            <a href="?pagina=<?= $pagina_atual - 1 ?>&itens_por_pagina=<?= $itens_por_pagina ?>"><-</a>
+        <?php endif; ?>
+
+        <?php for ($i = 1; $i <= $total_paginas; $i++): ?>
+            <?php if ($i == $pagina_atual): ?>
+                <strong><?= $i ?></strong>
+            <?php else: ?>
+                <a href="?pagina=<?= $i ?>&itens_por_pagina=<?= $itens_por_pagina ?>"><?= $i ?></a>
+            <?php endif; ?>
+        <?php endfor; ?>
+
+        <?php if ($pagina_atual < $total_paginas): ?>
+            <a href="?pagina=<?= $pagina_atual + 1 ?>&itens_por_pagina=<?= $itens_por_pagina ?>">-></a>
+        <?php endif; ?>
+    </div>
+
 </div>
 
 <div class="rodape">
