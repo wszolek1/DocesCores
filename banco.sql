@@ -60,7 +60,7 @@ CREATE TABLE pedidos (
 
 
 INSERT INTO produtos (nome, descricao, preco, imagem) VALUES
-('Bolo Red Velvet', 'Delicioso bolo aveludado com cobertura de cream cheese.', 59.90, 'imagens/redvelvet.jpg'),
-('Cupcake de Chocolate', 'Massa fofinha com cobertura cremosa de chocolate.', 9.90, 'imagens/cupcake_chocolate.jpg'),
-('Macaron Colorido', 'Diversos sabores, crocantes por fora e macios por dentro.', 4.50, 'imagens/macaron.jpg'),
-('Torta de Limão', 'Base crocante, recheio azedinho e merengue queimadinho.', 39.90, 'imagens/torta_limao.jpg');
+('Bolo Red Velvet', 'Delicioso bolo aveludado com cobertura de cream cheese.', 59.90, 'upload/tortaVermelhasPag3.jpg'),
+('Cupcake de Chocolate', 'Massa fofinha com cobertura cremosa de chocolate.', 9.90, 'upload/cupcakeRedVelvetPag3.jpg'),
+('Macaron Colorido', 'Diversos sabores, crocantes por fora e macios por dentro.', 4.50, 'upload/docesPag2.jpg'),
+('Torta de Limão', 'Base crocante, recheio azedinho e merengue queimadinho.', 39.90, 'upload/cheesecakePag3.jpg');
