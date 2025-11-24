@@ -7,9 +7,11 @@ if (!isset($_SESSION['usuario_tipo']) || $_SESSION['usuario_tipo'] !== 'adm') {
 }
 
 require "../../src/conexao-bd.php";
+require "../../src/modelo/Usuario.php";
+require "../../src/repositorio/UsuarioRepositorio.php";
 
-$stmt = $pdo->query("SELECT * FROM usuarios ORDER BY id DESC");
-$usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$usuarioRepo = new UsuarioRepositorio($pdo);
+$usuarios = $usuarioRepo->listarTodos();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -68,13 +70,13 @@ $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         <?php foreach ($usuarios as $u): ?>
             <tr>
-                <td><?= $u['id'] ?></td>
-                <td><?= $u['nome'] ?></td>
-                <td><?= $u['email'] ?></td>
-                <td><?= $u['tipo'] ?></td>
+                <td><?= $u->getId() ?></td>
+                <td><?= $u->getNome() ?></td>
+                <td><?= $u->getEmail() ?></td>
+                <td><?= $u->getTipo() ?></td>
                 <td>
-                    <a class="editar" href="editar.php?id=<?= $u['id'] ?>">Editar</a> |
-                    <a class="excluir" href="excluir.php?id=<?= $u['id'] ?>"
+                    <a class="editar" href="editar.php?id=<?= $u->getId() ?>">Editar</a> |
+                    <a class="excluir" href="excluir.php?id=<?= $u->getId() ?>"
                        onclick="return confirm('Excluir este usuário?')">Excluir</a>
                 </td>
             </tr>

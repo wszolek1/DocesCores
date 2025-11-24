@@ -1,24 +1,25 @@
 <?php
 require "../../src/conexao-bd.php";
+require "../../src/Modelo/Pedido.php";
+require "../../src/Repositorio/PedidoRepositorio.php";
 
-// pega todos os pedidos
-$stmt = $pdo->query("SELECT * FROM pedidos ORDER BY data_pedido DESC");
-$pedidos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$repo = new PedidoRepositorio($pdo);
+$pedidos = $repo->listarTodos();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Pedidos - Admin</title>
+    <title>Admin - Pedidos</title>
 
     <link rel="stylesheet" href="../../css/pedidos.css">
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 </head>
 
-
 <body>
-
 
 <div class="header">
     <ul>
@@ -46,15 +47,19 @@ $pedidos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         <?php foreach ($pedidos as $p): ?>
             <tr>
-                <td><?= $p['id'] ?></td>
-                <td><?= htmlspecialchars($p['nome_cliente']) ?></td>
-                <td><?= htmlspecialchars($p['produto']) ?></td>
-                <td><?= $p['quantidade'] ?></td>
-                <td><?= htmlspecialchars($p['status']) ?></td>
-                <td><?= $p['data_pedido'] ?></td>
+                <td><?= $p->getId() ?></td>
+                <td><?= htmlspecialchars($p->getNomeCliente()) ?></td>
+                <td><?= htmlspecialchars($p->getProduto()) ?></td>
+                <td><?= $p->getQuantidade() ?></td>
+                <td><?= htmlspecialchars($p->getStatus()) ?></td>
+                <td><?= $p->getDataPedido() ?></td>
+
                 <td class="acoes">
-                    <a class="btn-editar" href="editar.php?id=<?= $p['id'] ?>">Editar</a>
-                    <a class="btn-excluir" href="excluir.php?id=<?= $p['id'] ?>" onclick="return confirm('Excluir pedido?')">Excluir</a>
+                    <a class="btn-editar" href="editar.php?id=<?= $p->getId() ?>">Editar</a>
+                    <a class="btn-excluir" href="excluir.php?id=<?= $p->getId() ?>"
+                       onclick="return confirm('Excluir pedido?')">
+                        Excluir
+                    </a>
                 </td>
             </tr>
         <?php endforeach; ?>
