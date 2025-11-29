@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro - Doces & Cores</title>
-    <link rel="stylesheet" href="css/pag5.css">
+    <link rel="stylesheet" href="css/form-login.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -64,10 +64,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <div class="header">
     <ul>
-        <li><a href="pag1.html">Inicio</a></li>
-        <li><a href="pag2.html">Serviços</a></li>
-        <li><a href="pag3.php">Receitas</a></li>
-        <li><a href="pag4.html">Sobre</a></li>
+        <li><a href="inicio.php">Inicio</a></li>
+        <li><a href="sevicos.php">Serviços</a></li>
+        <li><a href="receitas.php">Receitas</a></li>
+        <li><a href="sobre.php">Sobre</a></li>
         <li><a href="carrinho/carrinho.php">Carrinho</a></li>
         <li><a href="login.php">Login</a></li>
     </ul>

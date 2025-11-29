@@ -5,8 +5,27 @@ require "src/Repositorio/ProdutoRepositorio.php";
 
 $produtosRepositorio = new ProdutoRepositorio($pdo);
 
-$receitas = $produtosRepositorio->listarTodos();
+// PAGINAÇÃO
+$itens_por_pagina = filter_input(INPUT_GET, 'itens_por_pagina', FILTER_VALIDATE_INT) ?: 4;
+
+$pagina_atual = isset($_GET['pagina']) ? max(1, (int)$_GET['pagina']) : 1;
+$offset = ($pagina_atual - 1) * $itens_por_pagina;
+
+$total_receitas = $produtosRepositorio->contarTotal();
+$total_paginas = ceil($total_receitas / $itens_por_pagina);
+
+$receitas = $produtosRepositorio->buscarPaginado(
+    $itens_por_pagina,
+    $offset,
+    null,
+    'ASC'
+);
 ?>
+
+<?php
+session_start();
+?>
+
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -14,7 +33,7 @@ $receitas = $produtosRepositorio->listarTodos();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DocesCores - Receitas</title>
-    <link rel="stylesheet" href="css/pag3.css">
+    <link rel="stylesheet" href="css/receitas.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,14 +48,20 @@ $receitas = $produtosRepositorio->listarTodos();
 
 <div class="header">
     <ul>
-        <li><a href="pag1.html">Inicio</a></li>
-        <li><a href="pag2.html">Serviços</a></li>
-        <li><a href="pag3.php">Receitas</a></li>
-        <li><a href="pag4.html">Sobre</a></li>
+        <li><a href="inicio.php">Inicio</a></li>
+        <li><a href="sevicos.php">Serviços</a></li>
+        <li><a href="receitas.php">Receitas</a></li>
+        <li><a href="sobre.php">Sobre</a></li>
         <li><a href="carrinho/carrinho.php">Carrinho</a></li>
-        <li><a href="login.php">Login</a></li>
+
+        <?php if (isset($_SESSION['usuario_id'])): ?>
+            <li><a href="logout.php">Logout</a></li>
+        <?php else: ?>
+            <li><a href="login.php">Login</a></li>
+        <?php endif; ?>
     </ul>
 </div>
+
 
 <div class="fundo">
     <div class="texto">
@@ -59,6 +84,28 @@ $receitas = $produtosRepositorio->listarTodos();
         <?php endforeach; ?>
 
     </div>
+
+    <!-- PAGINAÇÃO -->
+    <div class="paginacao-site">
+
+        <?php if ($pagina_atual > 1): ?>
+            <a href="?pagina=<?= $pagina_atual - 1 ?>&itens_por_pagina=<?= $itens_por_pagina ?>" class="seta-pag"><-</a>
+        <?php endif; ?>
+
+        <?php for ($i = 1; $i <= $total_paginas; $i++): ?>
+            <?php if ($i == $pagina_atual): ?>
+                <strong class="pagina-atual"><?= $i ?></strong>
+            <?php else: ?>
+                <a class="pagina-link" href="?pagina=<?= $i ?>&itens_por_pagina=<?= $itens_por_pagina ?>"><?= $i ?></a>
+            <?php endif; ?>
+        <?php endfor; ?>
+
+        <?php if ($pagina_atual < $total_paginas): ?>
+            <a href="?pagina=<?= $pagina_atual + 1 ?>&itens_por_pagina=<?= $itens_por_pagina ?>" class="seta-pag">-></a>
+        <?php endif; ?>
+
+    </div>
+
 </div>
 
 <div class="rodape">

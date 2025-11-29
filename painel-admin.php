@@ -27,6 +27,7 @@ if (!isset($_SESSION['usuario_tipo']) || $_SESSION['usuario_tipo'] !== 'adm') {
         <a href="adm/produtos/index.php" class="pa-botao">Gerenciar Produtos</a>
         <a href="adm/usuarios/index.php" class="pa-botao">Gerenciar Usuários</a>
         <a href="adm/pedidos/index.php" class="pa-botao">Gerenciar Pedidos</a>
+        <a href="adm/relatorios/relatorio-produtos.php" target="_blank" class="pa-botao">Relatório de Produtos</a>
     </div>
 </div>
 

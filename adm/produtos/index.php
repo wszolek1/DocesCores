@@ -4,7 +4,30 @@ require "../../src/Modelo/Produto.php";
 require "../../src/Repositorio/ProdutoRepositorio.php";
 
 $repo = new ProdutoRepositorio($pdo);
-$produtos = $repo->listarTodos();
+
+
+// ORDENAÇÃO
+$ordem = filter_input(INPUT_GET, 'ordem') ?: null;
+$direcao = filter_input(INPUT_GET, 'direcao') ?: 'ASC';
+
+
+$produtos = $repo->buscarTodosOrdenado($ordem, $direcao);
+
+// Função para gerar URL de ordenação
+function gerarUrlOrdenacao($campo, $ordemAtual, $direcaoAtual)
+{
+    $novaDirecao = ($ordemAtual === $campo && $direcaoAtual === 'ASC') ? 'DESC' : 'ASC';
+    return "?ordem={$campo}&direcao={$novaDirecao}";
+}
+
+// Ícone da setinha
+function iconeOrdenacao($campo, $ordemAtual, $direcaoAtual)
+{
+    if ($ordemAtual !== $campo) {
+        return "↕️";
+    }
+    return $direcaoAtual === "ASC" ? "↑" : "↓";
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -21,11 +44,11 @@ $produtos = $repo->listarTodos();
 
 <div class="header">
     <ul>
-        <li><a href="../../pag1.html">Inicio</a></li>
-        <li><a href="../../pag2.html">Serviços</a></li>
-        <li><a href="../../pag3.php">Receitas</a></li>
-        <li><a href="../../pag4.html">Sobre</a></li>
-        <li><a href="../../login.php">Login</a></li>
+        <li><a href="../../inicio.php">Inicio</a></li>
+        <li><a href="../../sevicos.php">Serviços</a></li>
+        <li><a href="../../receitas.php">Receitas</a></li>
+        <li><a href="../../sobre.php">Sobre</a></li>
+        <li><a href="../../logout.php">Logout</a></li>
     </ul>
 </div>
 
@@ -41,10 +64,26 @@ $produtos = $repo->listarTodos();
 
     <table class="tabela">
         <tr>
-            <th>ID</th>
+            <th>
+                <a href="<?= gerarUrlOrdenacao('id', $ordem, $direcao) ?>" class="ordem">
+                    ID <?= iconeOrdenacao('id', $ordem, $direcao) ?>
+                </a>
+            </th>
+
             <th>Imagem</th>
-            <th>Nome</th>
-            <th>Preço</th>
+
+            <th>
+                <a href="<?= gerarUrlOrdenacao('nome', $ordem, $direcao) ?>" class="ordem">
+                    Nome <?= iconeOrdenacao('nome', $ordem, $direcao) ?>
+                </a>
+            </th>
+
+            <th>
+                <a href="<?= gerarUrlOrdenacao('preco', $ordem, $direcao) ?>" class="ordem">
+                    Preço <?= iconeOrdenacao('preco', $ordem, $direcao) ?>
+                </a>
+            </th>
+
             <th>Ações</th>
         </tr>
 

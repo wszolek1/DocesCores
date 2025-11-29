@@ -1,25 +1,34 @@
+<?php
+session_start();
+$estaLogado = isset($_SESSION['usuario_id']);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="css\pag4.css">
+    <link rel="stylesheet" href="css/sobre.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-
 </head>
 
 <div class="header">
     <ul>
-        <li><a href="pag1.html">Inicio</a></li>
-        <li><a href="pag2.html">Serviços</a></li>
-        <li><a href="pag3.php">Receitas</a></li>
-        <li><a href="pag4.html">Sobre</a></li>
+        <li><a href="inicio.php">Inicio</a></li>
+        <li><a href="sevicos.php">Serviços</a></li>
+        <li><a href="receitas.php">Receitas</a></li>
+        <li><a href="sobre.php">Sobre</a></li>
         <li><a href="carrinho/carrinho.php">Carrinho</a></li>
-        <li><a href="login.php">Login</a></li>
+
+        <?php if ($estaLogado): ?>
+            <li><a href="logout.php">Logout</a></li>
+        <?php else: ?>
+            <li><a href="login.php">Login</a></li>
+        <?php endif; ?>
+
     </ul>
 </div>
 
@@ -37,8 +46,8 @@
 
             <div class="texto">
                 <h2>Na Doces & Cores, somos mais do que uma simples
-                    confeitaria somos seu parceiro de confiança na
-                     experiência da doçura feita em casa.
+                    confeitaria — somos seu parceiro de confiança na
+                    experiência da doçura feita em casa.
                 </h2>
             </div>
         </div>  
@@ -48,7 +57,7 @@
             <div class="texto2">
                 <h2>
                     Com uma paixão profunda por criar delícias
-                    e um compromisso com um  serviço excepcional,
+                    e um compromisso com um serviço excepcional,
                     nos especializamos em trazer aos nossos
                     clientes os doces dos seus sonhos, 
                     mesmo em meio à agitação urbana.
@@ -68,7 +77,7 @@
             <div class="texto">
                 <h2>Com a Doces & Cores, desfrutar da sobremesa
                     perfeita nunca foi tão fácil. Deixe-nos ajudá-lo a 
-                    descobrir a alegria e o  conforto das confeitarias artesanais, 
+                    descobrir a alegria e o conforto das confeitarias artesanais, 
                     garantindo uma experiência suave e encantadora.
                 </h2>
             </div>

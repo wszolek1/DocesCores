@@ -11,7 +11,7 @@ $usuario_id = $_SESSION['usuario_id'];
 $produto_id = $_POST['id'] ?? null;
 
 if (!$produto_id) {
-    header("Location: ../pag1.html");
+    header("Location: ../inicio.php");
     exit;
 }
 

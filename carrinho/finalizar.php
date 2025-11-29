@@ -51,5 +51,5 @@ $pdo->prepare("DELETE FROM carrinho WHERE usuario_id = ?")->execute([$usuario_id
 
 echo "<script>
 alert('Pedido realizado com sucesso!');
-window.location.href = '../pag1.html';
+window.location.href = '../inicio.php';
 </script>";

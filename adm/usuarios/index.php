@@ -7,9 +7,35 @@ if (!isset($_SESSION['usuario_tipo']) || $_SESSION['usuario_tipo'] !== 'adm') {
 }
 
 require "../../src/conexao-bd.php";
+require "../../src/modelo/Usuario.php";
+require "../../src/repositorio/UsuarioRepositorio.php";
 
-$stmt = $pdo->query("SELECT * FROM usuarios ORDER BY id DESC");
-$usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$usuarioRepo = new UsuarioRepositorio($pdo);
+
+// ------------------------------
+// ORDENAÇÃO
+// ------------------------------
+$ordem = filter_input(INPUT_GET, 'ordem') ?: null;
+$direcao = filter_input(INPUT_GET, 'direcao') ?: 'ASC';
+
+// Busca usuários ordenados
+$usuarios = $usuarioRepo->listarOrdenado($ordem, $direcao);
+
+// Função para gerar URL de ordenação
+function gerarUrlOrdenacao($campo, $ordemAtual, $direcaoAtual)
+{
+    $novaDirecao = ($ordemAtual === $campo && $direcaoAtual === 'ASC') ? 'DESC' : 'ASC';
+    return "?ordem={$campo}&direcao={$novaDirecao}";
+}
+
+// Ícone da setinha
+function iconeOrdenacao($campo, $ordemAtual, $direcaoAtual)
+{
+    if ($ordemAtual !== $campo) {
+        return "↕️";
+    }
+    return $direcaoAtual === "ASC" ? "↑" : "↓";
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -27,11 +53,11 @@ $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <div class="header">
     <ul>
-        <li><a href="../../pag1.html">Inicio</a></li>
-        <li><a href="../../pag2.html">Serviços</a></li>
-        <li><a href="../../pag3.php">Receitas</a></li>
-        <li><a href="../../pag4.html">Sobre</a></li>
-        <li><a href="../../login.php">Login</a></li>
+        <li><a href="../../inicio.php">Inicio</a></li>
+        <li><a href="../../sevicos.php">Serviços</a></li>
+        <li><a href="../../receitas.php">Receitas</a></li>
+        <li><a href="../../sobre.php">Sobre</a></li>
+        <li><a href="../../logout.php">Logout</a></li>
     </ul>
 </div>
 
@@ -59,22 +85,42 @@ $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <table class="tabela">
         <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Tipo</th>
+            <th>
+                <a href="<?= gerarUrlOrdenacao('id', $ordem, $direcao) ?>">
+                    ID <?= iconeOrdenacao('id', $ordem, $direcao) ?>
+                </a>
+            </th>
+
+            <th>
+                <a href="<?= gerarUrlOrdenacao('nome', $ordem, $direcao) ?>">
+                    Nome <?= iconeOrdenacao('nome', $ordem, $direcao) ?>
+                </a>
+            </th>
+
+            <th>
+                <a href="<?= gerarUrlOrdenacao('email', $ordem, $direcao) ?>">
+                    Email <?= iconeOrdenacao('email', $ordem, $direcao) ?>
+                </a>
+            </th>
+
+            <th>
+                <a href="<?= gerarUrlOrdenacao('tipo', $ordem, $direcao) ?>">
+                    Tipo <?= iconeOrdenacao('tipo', $ordem, $direcao) ?>
+                </a>
+            </th>
+
             <th>Ações</th>
         </tr>
 
         <?php foreach ($usuarios as $u): ?>
             <tr>
-                <td><?= $u['id'] ?></td>
-                <td><?= $u['nome'] ?></td>
-                <td><?= $u['email'] ?></td>
-                <td><?= $u['tipo'] ?></td>
+                <td><?= $u->getId() ?></td>
+                <td><?= $u->getNome() ?></td>
+                <td><?= $u->getEmail() ?></td>
+                <td><?= $u->getTipo() ?></td>
                 <td>
-                    <a class="editar" href="editar.php?id=<?= $u['id'] ?>">Editar</a> |
-                    <a class="excluir" href="excluir.php?id=<?= $u['id'] ?>"
+                    <a class="editar" href="editar.php?id=<?= $u->getId() ?>">Editar</a> |
+                    <a class="excluir" href="excluir.php?id=<?= $u->getId() ?>"
                        onclick="return confirm('Excluir este usuário?')">Excluir</a>
                 </td>
             </tr>

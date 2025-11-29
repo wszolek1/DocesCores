@@ -1,16 +1,13 @@
-body
-{
+body {
     margin: 0;
 }
 
-a
-{
+a {
     color: white;
     text-decoration: none;
 }
 
-.header ul
-{
+.header ul {
     width: 100%;
     height: 10vh;
     color: white;
@@ -25,18 +22,16 @@ a
     background-color: #ff9696cc;
 }
 
-.fundo
-{
+.fundo {
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     background-color: #6B1B3C;
     padding-bottom: 250px;
 }
 
-.texto
-{
+.texto {
     font-size: larger;
     text-align: center;
     color: white;
@@ -46,37 +41,34 @@ a
     padding-bottom: 50px;
 }
 
-.texto h1
-{
+.texto h1 {
     font-family: "Pacifico", cursive;
 }
 
-.texto p
-{
+.texto p {
     font-family: "Raleway", sans-serif;
-    font-style: normal;
 }
 
-.receitas
-{
+.receitas {
     display: flex;
-    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 40px;
     align-items: center;
-    justify-content: space-evenly;
-    margin: 0;
-    
+    justify-content: center;
+    margin-top: 40px;
 }
 
+.receitaLink {
+    text-decoration: none;
+}
 
-.receitas img
-{
+.receitaItem img {
     width: 374px;
     height: 448px;
     border-radius: 20% 20% 0% 0%;
 }
 
-.receitas p
-{
+.receitaItem p {
     color: white;
     width: 374px;
     text-align: center;
@@ -86,11 +78,49 @@ a
     border-radius: 0% 0% 20px 20px;
     box-sizing: border-box;
     font-family: "Raleway", sans-serif;
-    font-style: normal;
 }
 
-.rodape
-{
+/* ===== PAGINAÇÃO ===== */
+.paginacao-site {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 50px;
+    flex-wrap: wrap;
+}
+
+.paginacao-site a,
+.paginacao-site strong {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #ff9696;
+    color: white;
+    border-radius: 50%;
+    font-family: "Raleway", sans-serif;
+    font-size: 18px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    border: 2px solid transparent;
+}
+
+.paginacao-site a:hover {
+    background-color: #ff6e6e;
+    transform: scale(1.08);
+}
+
+.paginacao-site strong {
+    background-color: #6B1B3C;
+    border: 2px solid #ff9696;
+    transform: scale(1.12);
+}
+
+/* ===== RODAPÉ ===== */
+.rodape {
     width: 100%;
     height: 10vh;
     color: white;
@@ -105,8 +135,7 @@ a
     flex-wrap: wrap;
 }
 
-.rodape ul
-{
+.rodape ul {
     display: flex;
     width: 100%;
     justify-content: space-around;
@@ -114,7 +143,6 @@ a
     margin: 0;
     padding: 0;
 }
-
 
 .rodape li {
     display: flex;

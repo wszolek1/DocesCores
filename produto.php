@@ -33,10 +33,10 @@ if (!$p) {
 
 <div class="header">
     <ul>
-        <li><a href="pag1.html">Inicio</a></li>
-        <li><a href="pag2.html">Serviços</a></li>
-        <li><a href="pag3.php">Receitas</a></li>
-        <li><a href="pag4.html">Sobre</a></li>
+        <li><a href="inicio.php">Inicio</a></li>
+        <li><a href="sevicos.php">Serviços</a></li>
+        <li><a href="receitas.php">Receitas</a></li>
+        <li><a href="sobre.php">Sobre</a></li>
         <li><a href="carrinho/carrinho.php">Carrinho</a></li>
         <li><a href="login.php">Login</a></li>
     </ul>
